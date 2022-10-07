@@ -1,6 +1,6 @@
 # FilmesAPI-Dotnet
 
-I used this project to learn and practice C# and .NET creating a movies API:
+ I created this project to learn the concepts of create and consume an API using C# and .NET.
 
 ## Learn how to:
 
