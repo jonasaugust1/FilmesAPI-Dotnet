@@ -7,14 +7,39 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\**" />
-    <Content Remove="Migrations\**" />
-    <EmbeddedResource Remove="Migrations\**" />
-    <None Remove="Migrations\**" />
+    <Compile Include="obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
+    <Compile Include="obj\Debug\net6.0\FilmesAPI.AssemblyInfo.cs" />
+    <Compile Include="obj\Debug\net6.0\FilmesAPI.GlobalUsings.g.cs" />
+    <Compile Include="obj\Debug\net6.0\FilmesAPI.MvcApplicationPartsAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="obj\Debug\net6.0\FilmesAPI.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\net6.0\staticwebassets.build.json" />
+    <Content Include="obj\FilmesAPI.csproj.nuget.dgspec.json" />
+    <Content Include="obj\project.assets.json" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="obj\Debug\net6.0\apphost.exe" />
+    <None Include="obj\Debug\net6.0\FilmesAPI.AssemblyInfoInputs.cache" />
+    <None Include="obj\Debug\net6.0\FilmesAPI.assets.cache" />
+    <None Include="obj\Debug\net6.0\FilmesAPI.csproj.AssemblyReference.cache" />
+    <None Include="obj\Debug\net6.0\FilmesAPI.csproj.BuildWithSkipAnalyzers" />
+    <None Include="obj\Debug\net6.0\FilmesAPI.csproj.CopyComplete" />
+    <None Include="obj\Debug\net6.0\FilmesAPI.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\net6.0\FilmesAPI.dll" />
+    <None Include="obj\Debug\net6.0\FilmesAPI.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="obj\Debug\net6.0\FilmesAPI.genruntimeconfig.cache" />
+    <None Include="obj\Debug\net6.0\FilmesAPI.MvcApplicationPartsAssemblyInfo.cache" />
+    <None Include="obj\Debug\net6.0\FilmesAPI.pdb" />
+    <None Include="obj\Debug\net6.0\refint\FilmesAPI.dll" />
+    <None Include="obj\Debug\net6.0\ref\FilmesAPI.dll" />
+    <None Include="obj\FilmesAPI.csproj.nuget.g.props" />
+    <None Include="obj\FilmesAPI.csproj.nuget.g.targets" />
+    <None Include="obj\project.nuget.cache" />
+    <None Include="obj\staticwebassets.pack.sentinel" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,5 +51,12 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="obj\Debug\net6.0\staticwebassets\" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

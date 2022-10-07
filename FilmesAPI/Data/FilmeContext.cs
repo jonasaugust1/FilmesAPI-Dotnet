@@ -9,6 +9,6 @@ namespace FilmesAPI.Data
         {
         }
 
-        public DbSet<Filme> Filmes { get; set; }
+        public virtual DbSet<Filme> Filmes { get; set; }
     }
 }
