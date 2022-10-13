@@ -25,11 +25,19 @@ namespace FilmesAPI.Services
             return _mapper.Map<ReadCinemaDto>(cinema);
         }
 
-        public List<ReadCinemaDto> RecuperarCinemas(string? nomeDoFilme)
+        public List<ReadCinemaDto> RecuperarCinemas(string? nomeDoFilme, string? estado)
         {
             List<Cinema> cinemas = _context.Cinemas.ToList();
 
             if (cinemas == null) return null;
+
+            if(!string.IsNullOrEmpty(estado))
+            {
+                IEnumerable<Cinema> query = from cinema in cinemas
+                                            where cinema.Endereco.Estado.Equals(estado)
+                                            select cinema;
+                cinemas = query.ToList();
+            }
 
             if (!string.IsNullOrEmpty(nomeDoFilme))
             {
@@ -42,6 +50,7 @@ namespace FilmesAPI.Services
 
             return readDto;
         }
+
 
         public ReadCinemaDto RecuperarCinemaPorId(int id)
         {

@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using FilmesAPI.Data;
+﻿
 using FilmesAPI.Data.Dtos.CinemaDto;
-using FilmesAPI.Models;
 using FilmesAPI.Services;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
@@ -28,9 +26,9 @@ namespace FilmesAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult RecuperarCinemas([FromQuery] string? nomeDoFilme)
+        public IActionResult RecuperarCinemas([FromQuery] string? nomeDoFilme, string? estado)
         {
-            List<ReadCinemaDto> readDto = _cinemaService.RecuperarCinemas(nomeDoFilme);
+            List<ReadCinemaDto> readDto = _cinemaService.RecuperarCinemas(nomeDoFilme, estado);
            
             if(readDto == null) return NotFound();
 

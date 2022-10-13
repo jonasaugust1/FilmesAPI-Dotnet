@@ -1,5 +1,4 @@
 ﻿using FilmesAPI.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace FilmesAPI.Data.Dtos.CinemaDto
 {
