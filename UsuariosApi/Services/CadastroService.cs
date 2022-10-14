@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentResults;
 using Microsoft.AspNetCore.Identity;
-using UsuariosApi.Data;
+using System.Web;
 using UsuariosApi.Data.Dtos;
 using UsuariosApi.Data.Request;
 using UsuariosApi.Models;
@@ -12,10 +12,12 @@ namespace UsuariosApi.Services
     {
         private IMapper _mapper;
         private UserManager<IdentityUser<int>> _userManager;
-        public CadastroService(IMapper mapper, UserManager<IdentityUser<int>> userManager)
+        private EmailService _emailService;
+        public CadastroService(IMapper mapper, UserManager<IdentityUser<int>> userManager, EmailService emailService)
         {
             _mapper = mapper;
             _userManager = userManager;
+            _emailService = emailService;
         }
 
         public Result AtivaContaUsuario(AtivaContaRequest request)
@@ -25,7 +27,7 @@ namespace UsuariosApi.Services
                 .FirstOrDefault(u => u.Id == request.UsuarioId);
 
             IdentityResult identityResult = _userManager.ConfirmEmailAsync(identityUser, request.CodigoDeAtivacao).Result;
-
+            Console.WriteLine(identityResult);
             if(identityResult.Succeeded)
             {
                 return Result.Ok();
@@ -44,6 +46,12 @@ namespace UsuariosApi.Services
             if (resultadoIdentiy.Result.Succeeded)
             {
                 string code = _userManager.GenerateEmailConfirmationTokenAsync(identityUser).Result;
+
+                string encodedCode = HttpUtility.UrlEncode(code);
+
+                _emailService.EnviarEmail(new[] { identityUser.Email },
+                    "Link de Ativação", identityUser.Id, code);
+
                 return Result.Ok().WithSuccess(code);
             }
             return Result.Fail("Falha ao cadastrar usuário");
