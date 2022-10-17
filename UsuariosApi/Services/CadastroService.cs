@@ -27,7 +27,7 @@ namespace UsuariosApi.Services
                 .FirstOrDefault(u => u.Id == request.UsuarioId);
 
             IdentityResult identityResult = _userManager.ConfirmEmailAsync(identityUser, request.CodigoDeAtivacao).Result;
-            Console.WriteLine(identityResult);
+            
             if(identityResult.Succeeded)
             {
                 return Result.Ok();
