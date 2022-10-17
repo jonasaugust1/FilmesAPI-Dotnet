@@ -7,10 +7,10 @@ namespace UsuariosApi.Services
 {
     public class LoginService
     {
-        private SignInManager<IdentityUser<int>> _signInManager;
+        private SignInManager<CustomIdentityUser> _signInManager;
         private TokenService _tokenService;
 
-        public LoginService(SignInManager<IdentityUser<int>> signInManager, TokenService tokenService)
+        public LoginService(SignInManager<CustomIdentityUser> signInManager, TokenService tokenService)
         {
             _signInManager = signInManager;
             _tokenService = tokenService;
@@ -23,12 +23,17 @@ namespace UsuariosApi.Services
 
             if (resultadoIdentity.Result.Succeeded)
             {
-                IdentityUser<int> identityUser = _signInManager
+                CustomIdentityUser identityUser = _signInManager
                     .UserManager
                     .Users
                     .FirstOrDefault(usuario => 
                     usuario.NormalizedUserName == request.UserName.ToUpper());
-                Token token = _tokenService.CreateToken(identityUser);
+
+                Token token = _tokenService.CreateToken(identityUser,
+                    _signInManager
+                    .UserManager.GetRolesAsync(identityUser)
+                    .Result
+                    .FirstOrDefault());
             
                 return Result.Ok().WithSuccess(token.Value);
             }
@@ -38,7 +43,7 @@ namespace UsuariosApi.Services
 
         public Result SolicitaResetSenhaUsuario(SolicitaResetRequest request)
         {
-            IdentityUser<int> identityUser = RecuperaUsuarioPorEmail(request.Email);
+            CustomIdentityUser identityUser = RecuperaUsuarioPorEmail(request.Email);
 
             if(identityUser != null)
             {
@@ -53,7 +58,7 @@ namespace UsuariosApi.Services
 
         public Result ResetaSenhaUsuario(EfetuaResetRequest request)
         {
-            IdentityUser<int> identityUser = RecuperaUsuarioPorEmail(request.Email);
+            CustomIdentityUser identityUser = RecuperaUsuarioPorEmail(request.Email);
 
             IdentityResult identityResult = _signInManager
                 .UserManager
@@ -64,7 +69,7 @@ namespace UsuariosApi.Services
             return Result.Fail("Redefinição de senha falhou");
         }
 
-        private IdentityUser<int> RecuperaUsuarioPorEmail(string email)
+        private CustomIdentityUser RecuperaUsuarioPorEmail(string email)
         {
             return _signInManager
                            .UserManager
